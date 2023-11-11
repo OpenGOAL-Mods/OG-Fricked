@@ -29,7 +29,8 @@
 (defenum speedrun-menu-command
   :type uint32
   (reset 0)
-  (exit 1))
+  (exit 1)
+  (die 2))
 
 (deftype speedrun-menu (process-drawable)
   ((popup-menu popup-menu)

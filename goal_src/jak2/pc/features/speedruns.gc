@@ -83,6 +83,7 @@
   (new 'static 'popup-menu
     :entries (new 'static 'boxed-array :type popup-menu-entry
       (new 'static 'popup-menu-button :label "Reset" :on-press (lambda () (send-event (ppointer->process *speedrun-menu*) 'invoke (speedrun-menu-command reset))))
+      (new 'static 'popup-menu-button :label "Die" :on-press (lambda () (send-event (ppointer->process *speedrun-menu*) 'invoke (speedrun-menu-command die))))
       (new 'static 'popup-menu-button :label "Exit" :on-press (lambda () (send-event (ppointer->process *speedrun-menu*) 'invoke (speedrun-menu-command exit))))
       )
     )
@@ -111,6 +112,11 @@
        (case (-> event param 0)
         (((speedrun-menu-command reset))
          (start-run! *speedrun-info*))
+       (((speedrun-menu-command die))
+         
+      (send-event *target* 'attack-invinc #f (static-attack-info ((id (the-as uint 2)) (mode 'endlessfall))))
+          (set! (-> self draw-menu?) #f)
+         )
         (((speedrun-menu-command exit))
          (set-master-mode 'game)
          (set! (-> self draw-menu?) #f))
