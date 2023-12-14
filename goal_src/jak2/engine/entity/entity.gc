@@ -1940,6 +1940,7 @@
 (define-extern elevator type)
 (define-extern liftcat type)
 (define-extern piston type)
+(define-extern drill-metalhead-eggs type)
 
 
 ;; WARN: Return type mismatch process-drawable vs none.
@@ -1998,6 +1999,12 @@
            )
 
             ((elevator)
+            (set! (-> arg0 root scale x) (rand-vu-float-range 1.1 2.0))
+            (set! (-> arg0 root scale y) (rand-vu-float-range 1.1 2.0))
+            (set! (-> arg0 root scale z) (rand-vu-float-range 1.1 2.0))
+           )
+
+                       ((drill-metalhead-eggs)
             (set! (-> arg0 root scale x) (rand-vu-float-range 1.1 2.0))
             (set! (-> arg0 root scale y) (rand-vu-float-range 1.1 2.0))
             (set! (-> arg0 root scale z) (rand-vu-float-range 1.1 2.0))
