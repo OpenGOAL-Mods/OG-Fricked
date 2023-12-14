@@ -2005,9 +2005,9 @@
            )
 
                        ((drill-metalhead-eggs)
-            (set! (-> arg0 root scale x) (rand-vu-float-range 1.1 2.0))
-            (set! (-> arg0 root scale y) (rand-vu-float-range 1.1 2.0))
-            (set! (-> arg0 root scale z) (rand-vu-float-range 1.1 2.0))
+            (set! (-> arg0 root scale x) (rand-vu-float-range 1.0 1.0))
+            (set! (-> arg0 root scale y) (rand-vu-float-range 1.0 1.0))
+            (set! (-> arg0 root scale z) (rand-vu-float-range 1.0 1.0))
            )
 
           (else
