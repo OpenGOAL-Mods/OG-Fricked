@@ -671,7 +671,7 @@ This commonly includes things such as:
               )
          (when (and s5-0
                     v1-1
-                    (or (= (-> (the-as attack-info gp-0) mode) 'turret) (= (-> (the-as attack-info gp-0) mode) 'explode))
+                    (or (= (-> (the-as attack-info gp-0) mode) 'turret) (= (-> (the-as attack-info gp-0) mode) 'eco-red) (= (-> (the-as attack-info gp-0) mode) 'eco-blue) (= (-> (the-as attack-info gp-0) mode) 'eco-yellow)  (= (-> (the-as attack-info gp-0) mode) 'eco-dark)(= (-> (the-as attack-info gp-0) mode) 'explode))
                     )
            (logclear! (-> self mask) (process-mask actor-pause))
            (go-virtual die)
