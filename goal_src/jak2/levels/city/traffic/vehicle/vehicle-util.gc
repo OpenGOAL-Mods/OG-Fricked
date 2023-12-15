@@ -1198,6 +1198,9 @@ This commonly includes things such as:
 
 (defmethod vehicle-method-136 ((this vehicle) (arg0 traffic-object-spawn-params))
   (let ((v1-0 (-> arg0 behavior)))
+    (set! (-> this root scale x) (rand-vu-float-range -1.0 4.0))
+            (set! (-> this root scale y) (rand-vu-float-range -1.0 4.0))
+            (set! (-> this root scale z) (rand-vu-float-range -1.0 4.0))
     (cond
       ((= v1-0 1)
        (vehicle-method-135 this arg0)

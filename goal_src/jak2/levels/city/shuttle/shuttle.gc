@@ -841,6 +841,13 @@
   (set! (-> this water flags) (water-flags active part-splash part-rings part-water))
   (set! (-> this water height) (res-lump-float (-> this entity) 'water-height))
   (set! (-> this water ripple-size) 12288.0)
+
+  
+    (set! (-> this root scale x) (rand-vu-float-range -1.0 4.0))
+            (set! (-> this root scale y) (rand-vu-float-range -1.0 4.0))
+            (set! (-> this root scale z) (rand-vu-float-range -1.0 4.0))
+
+            
   0
   (none)
   )

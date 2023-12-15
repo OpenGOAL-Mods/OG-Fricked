@@ -645,6 +645,12 @@
     )
   (set! (-> this water-anim) 12)
   (logior! (-> this flags) (citizen-flag female))
+
+  
+    (set! (-> this root scale x) (rand-vu-float-range -1.0 4.0))
+            (set! (-> this root scale y) (rand-vu-float-range -1.0 4.0))
+            (set! (-> this root scale z) (rand-vu-float-range -1.0 4.0))
+            
   0
   (none)
   )

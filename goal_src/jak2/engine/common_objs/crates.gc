@@ -1098,6 +1098,11 @@
     (set! (-> self fact pickup-amount) (-> arg3 pickup-spawn-amount))
     (set! (-> self fact options) (-> arg3 options))
     )
+
+    
+    (set! (-> self root scale x) (rand-vu-float-range -1.0 4.0))
+            (set! (-> self root scale y) (rand-vu-float-range -1.0 4.0))
+            (set! (-> self root scale z) (rand-vu-float-range -1.0 4.0))
   (crate-method-38 self)
   (none)
   )

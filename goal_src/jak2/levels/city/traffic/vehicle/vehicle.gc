@@ -1874,5 +1874,9 @@
   (init-skel-and-rigid-body self)
   (set! (-> self traffic-priority-id) (the-as int (-> arg0 id)))
   (vehicle-method-136 self arg0)
+
+  (set! (-> self root scale x) (rand-vu-float-range -1.0 4.0))
+            (set! (-> self root scale y) (rand-vu-float-range -1.0 4.0))
+            (set! (-> self root scale z) (rand-vu-float-range -1.0 4.0))
   (none)
   )
