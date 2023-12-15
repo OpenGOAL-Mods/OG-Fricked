@@ -1949,6 +1949,10 @@
   (set! (-> arg0 root trans quad) (-> arg1 extra trans quad))
   (quaternion-copy! (-> arg0 root quat) (-> arg1 quat))
   (vector-identity! (-> arg0 root scale))
+    
+    (when (not (focus-test? *target* indax))
+    
+    
      (case (-> arg0 type)
         ;;If you add a type here you can specifiy specific scaling to use instead of -1.0  4.0 
           ((plant-boss)
@@ -2016,6 +2020,7 @@
             (set! (-> arg0 root scale z) (rand-vu-float-range -1.0 4.0))
             )
           )
+    )
           
   (none)
   )
