@@ -24,7 +24,7 @@ jobs:
       semverBump: ${{ inputs.bump }}
       metadataName: "Test Mod Bundle"
       metadataDescription: "This is a test mod bundle. 2"
-      metadataSupportedGames: "jak1"
+      metadataSupportedGames: "jak1,jak2"
       metadataAuthors: "barg,vaser"
       metadataTags: "rng,gameplay-mod"
       metadataWebsiteUrl: "https://github.com/OpenGOAL-Mods/OG-Fricked/releases"
