@@ -27,7 +27,7 @@ jobs:
       metadataSupportedGames: "jak1"
       metadataAuthors: "barg,vaser"
       metadataTags: "rng,gameplay-mod"
-      metadataWebsiteUrl: "https://www.example.com/this/is/optional"
+      metadataWebsiteUrl: "https://github.com/OpenGOAL-Mods/OG-Fricked/releases"
       skipMacOS: true
       skipLinux: true
       toolingBinaryDir: "out/build/Release/bin"
