@@ -7,9 +7,9 @@
 
 #include "game/sound/common/voice.h"
 
-#include "third-party/fmt/core.h"
+#include "fmt/core.h"
 
-std::shared_ptr<snd::Voice> voices[4];
+std::shared_ptr<snd::Voice> voices[kNVoices];
 u8 spu_memory[0x15160 * 10];
 
 static sceSdTransIntrHandler trans_handler[2] = {nullptr, nullptr};
@@ -21,12 +21,15 @@ u32 sceSdGetSwitch(u32 entry) {
 }
 
 snd::Voice* voice_from_entry(u32 entry) {
-  u32 it = entry & 3;
+  u32 it = entry % kNVoices;
   return voices[it].get();
 }
 
 u32 sceSdGetAddr(u32 entry) {
-  auto* voice = voice_from_entry(entry);
+  [[maybe_unused]] u32 core = entry & 1;
+  [[maybe_unused]] u32 voice_id = (entry >> 1) & 0x1f;
+
+  auto* voice = voice_from_entry(voice_id);
   if (!voice) {
     return 0;
   }
@@ -38,35 +41,35 @@ u32 sceSdGetAddr(u32 entry) {
   return voice->GetNax() << 1;
 }
 
-void sceSdSetSwitch(u32 entry, u32 /*value*/) {
-  // we can ignore this, only used for vmix
+void sceSdSetSwitch(u32 entry, u32 value) {
   u32 reg = entry & ~0x3f;
-  switch (reg) {
-    case 0x1500:
-      voice_from_entry(entry)->KeyOn();
-      voice_from_entry(entry + 1)->KeyOn();
-      break;
-    case 0x1600:
-      voice_from_entry(entry)->KeyOff();
-      break;
+  u8 voice = 0;
+  while (value) {
+    u8 bit = value & 1;
+
+    if (bit) {
+      switch (reg) {
+        case SD_S_KON:
+          voice_from_entry(voice)->KeyOn();
+          break;
+        case SD_S_KOFF:
+          voice_from_entry(voice)->KeyOff();
+          break;
+      }
+    }
+
+    voice++;
+    value >>= 1;
   }
-}
-
-void sceSdkey_on_jak2_voice(int id) {
-  voice_from_entry(id)->KeyOn();
-}
-
-void sceSdkey_off_jak2_voice(int id) {
-  voice_from_entry(id)->KeyOff();
 }
 
 void sceSdSetAddr(u32 entry, u32 value) {
-  auto* voice = voice_from_entry(entry);
+  [[maybe_unused]] u32 core = entry & 1;
+  [[maybe_unused]] u32 voice_id = (entry >> 1) & 0x1f;
+  auto* voice = voice_from_entry(voice_id);
   if (!voice) {
     return;
   }
-  [[maybe_unused]] u32 core = entry & 1;
-  [[maybe_unused]] u32 voice_id = (entry >> 1) & 0x1f;
   u32 reg = entry & ~0x3f;
 
   switch (reg) {
@@ -84,12 +87,13 @@ void sceSdSetAddr(u32 entry, u32 value) {
 }
 
 void sceSdSetParam(u32 entry, u32 value) {
-  auto* voice = voice_from_entry(entry);
+  [[maybe_unused]] u32 core = entry & 1;
+  [[maybe_unused]] u32 voice_id = (entry >> 1) & 0x1f;
+
+  auto* voice = voice_from_entry(voice_id);
   if (!voice) {
     return;
   }
-  [[maybe_unused]] u32 core = entry & 1;
-  [[maybe_unused]] u32 voice_id = (entry >> 1) & 0x1f;
   u32 reg = entry & ~0x3f;
 
   switch (reg) {
@@ -118,10 +122,10 @@ void sceSdSetTransIntrHandler(s32 channel, sceSdTransIntrHandler handler, void* 
   userdata[channel] = data;
 }
 
-u32 sceSdVoiceTrans(s32 channel, s32 mode, void* iop_addr, u32 spu_addr, u32 size) {
+u32 sceSdVoiceTrans(s32 channel, s32 mode, const void* iop_addr, u32 spu_addr, u32 size) {
   memcpy(&spu_memory[spu_addr], iop_addr, size);
   if (trans_handler[channel] != nullptr) {
-    trans_handler[channel](channel, userdata);
+    trans_handler[channel](channel, userdata[channel]);
   }
   return size;
 }
