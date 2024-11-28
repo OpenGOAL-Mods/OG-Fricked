@@ -1028,10 +1028,7 @@
       )
     )
   :code (behavior ()
-    (let ((gp-0 (current-time)))
-      (until (time-elapsed? gp-0 (seconds 0.2))
-        (suspend)
-        )
+    (suspend-for (seconds 0.2)
       )
     (let ((v1-6 (-> self root root-prim)))
       (set! (-> v1-6 prim-core collide-as) (-> self root backup-collide-as))
@@ -1793,7 +1790,7 @@
 (defstate knocked-recover (grunt)
   :virtual #t
   :code (behavior ()
-    (local-vars (v1-49 object))
+    (local-vars (v1-49 symbol))
     (ja-channel-push! 1 0)
     (let ((gp-0 (-> (the-as ragdoll-proc (handle->process (-> self ragdoll-proc))) ragdoll)))
       (when gp-0
