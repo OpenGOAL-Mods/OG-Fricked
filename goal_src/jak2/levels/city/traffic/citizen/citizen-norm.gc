@@ -820,7 +820,7 @@
   ;;       )
   ;;   (set-vector! (-> this root scale) f0-11 f30-0 f0-11 1.0)
   ;;   )
-  (let ((f0-13 (get-rand-float-range this 0.9 1.0)))
+  (let ((f0-13 (rnd-float-range this 0.9 1.0)))
     (set-vector! (-> this draw color-mult) f0-13 f0-13 f0-13 1.0)
     )
   (set! (-> this water-anim) 29)
